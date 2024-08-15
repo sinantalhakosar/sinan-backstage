@@ -6,6 +6,7 @@ import {
   IndexableDocument,
 } from '@backstage/plugin-search-common';
 import { Repository } from '../types';
+import { getGithubRepositoryMDFiles } from '../utils/getGithubRepositoryMDFiles';
 
 export interface GithubMDDocument extends IndexableDocument {}
 
@@ -54,9 +55,20 @@ export class GithubMDCollatorFactory implements DocumentCollatorFactory {
     for (const repository of this.repositoryList) {
       const owner = repository.owner;
       const name = repository.repo;
-      const apiUrl = `https://api.github.com/repos/${owner}/${name}/git/trees/main?recursive=1`;
 
-      this.logger.info(`GithubMDCollatorFactory repo ${apiUrl}`);
+      try {
+        const mdFileList = await getGithubRepositoryMDFiles({
+          owner,
+          repo: name,
+        });
+
+        this.logger.info(`1st MD File ${JSON.stringify(mdFileList[0])}`);
+      } catch (error) {
+        this.logger.error(
+          `Error fetching markdown files: ${(error as Error).message}`,
+        );
+        continue;
+      }
     }
   }
 }
