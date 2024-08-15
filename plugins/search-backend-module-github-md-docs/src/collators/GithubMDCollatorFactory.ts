@@ -1,21 +1,12 @@
 import { LoggerService } from '@backstage/backend-plugin-api';
 import { Config } from '@backstage/config';
 import { Readable } from 'stream';
-import {
-  DocumentCollatorFactory,
-  IndexableDocument,
-} from '@backstage/plugin-search-common';
-import { Repository } from '../types';
+import { DocumentCollatorFactory } from '@backstage/plugin-search-common';
+import { GithubMDDocument, Repository } from '../types';
 import { getGithubRepositoryMDFiles } from '../utils/getGithubRepositoryMDFiles';
 
 const githubBaseURL = 'https://github.com';
 const githubMDDocsPluginPath = '/github-md-docs';
-
-export interface GithubMDDocument extends IndexableDocument {
-  repositoryLink: string;
-  repositoryOwner: string;
-  repositoryName: string;
-}
 
 export type GithubMDCollatorFactoryOptions = {
   logger: LoggerService;
