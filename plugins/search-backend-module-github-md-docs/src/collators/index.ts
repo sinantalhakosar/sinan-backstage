@@ -1,4 +1,1 @@
-export {
-  type GithubMDDocument,
-  GithubMDCollatorFactory,
-} from './GithubMDCollatorFactory';
+export { GithubMDCollatorFactory } from './GithubMDCollatorFactory';

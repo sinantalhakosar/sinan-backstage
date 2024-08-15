@@ -34,7 +34,6 @@ const useStyles = makeStyles(() => ({
 
 export interface GithubMDDocSearchResultListItemProps {
   icon?: ReactNode;
-  secondaryAction?: ReactNode;
   result?: GithubMDDocument;
   highlight?: ResultHighlight;
   rank?: number;
@@ -46,7 +45,6 @@ export const GithubMDDocSearchResultListItem = ({
   result,
   highlight,
   icon,
-  secondaryAction,
   lineClamp = 5,
 }: GithubMDDocSearchResultListItemProps) => {
   const classes = useStyles();

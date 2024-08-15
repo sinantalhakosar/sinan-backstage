@@ -4,11 +4,11 @@ import {
 } from '@backstage/core-plugin-api';
 
 import { rootRouteRef } from './routes';
-import { GithubMDDocSearchResultListItemProps } from './components/GithubMDDocSearchResultListItem/GithubMDDocSearchResultListItem';
 import {
   createSearchResultListItemExtension,
   SearchResultListItemExtensionProps,
 } from '@backstage/plugin-search-react';
+import { GithubMDDocSearchResultListItemProps } from './components/GithubMDDocSearchResultListItem';
 
 export const githubMdDocsPlugin = createPlugin({
   id: 'github-md-docs',
