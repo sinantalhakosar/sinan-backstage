@@ -24,7 +24,8 @@ import {
   Page,
 } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
-import { GithubMDDocSearchResultListItem } from '@internal/backstage-plugin-github-md-docs';
+// eslint-disable-next-line @backstage/no-forbidden-package-imports
+import { GithubMDDocSearchResultListItem } from '@internal/backstage-plugin-github-md-docs/src';
 
 
 const useStyles = makeStyles((theme: Theme) => ({
