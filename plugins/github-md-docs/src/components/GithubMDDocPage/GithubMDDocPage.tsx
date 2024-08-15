@@ -1,7 +1,5 @@
 import React from 'react';
-import { Typography, Grid } from '@material-ui/core';
 import {
-  InfoCard,
   Header,
   Page,
   Content,
@@ -9,31 +7,12 @@ import {
   HeaderLabel,
   SupportButton,
   LinkButton,
-  Link,
+  EmptyState,
 } from '@backstage/core-components';
-import { GithubMDDocFetchComponent } from '../GithubMDDocFetchComponent';
-import { useParams } from 'react-router-dom';
-import { makeStyles, Theme } from '@material-ui/core/styles';
-import OpenInNew from '@material-ui/icons/OpenInNew';
-import { GitHubIcon } from '@backstage/core-components';
-
-const useStyles = makeStyles((theme: Theme) => ({
-  infoCard: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  markdownWrapper: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(1, 3, 1, 3),
-    borderRadius: theme.shape.borderRadius,
-  },
-}));
-
-const githubBaseUrl = 'https://github.com';
+import { useParams, useSearchParams } from 'react-router-dom';
+import { GithubMDDocContent } from '../GithubMDDocContent';
 
 export const GithubMDDocPage = () => {
-  const classes = useStyles();
   /* 
     const { owner, repo, mdFilePath } = useRouteRefParams(rootRouteRef);
     should be used, but it is not working as expected. Desctructured items are undefined.
@@ -42,11 +21,11 @@ export const GithubMDDocPage = () => {
 
   const owner = path.split('/')[0];
   const repo = path.split('/')[1];
-  const mdFilePath = path.split('/')[2];
 
-  const ownerLink = `${githubBaseUrl}/${owner}`;
-  const repoLink = `${githubBaseUrl}/${owner}/${repo}`;
-  const mdFileLink = `${githubBaseUrl}/${owner}/${repo}/blob/main/${mdFilePath}`;
+  const [searchParams] = useSearchParams();
+  const mdFilePath = searchParams.get('path');
+
+  const showEmptyState = !owner || !repo || !mdFilePath;
 
   return (
     <Page themeId="tool">
@@ -57,50 +36,30 @@ export const GithubMDDocPage = () => {
         <HeaderLabel label="Owner" value="Sinan Talha KOSAR" />
         <HeaderLabel label="Lifecycle" value="Development" />
       </Header>
+
       <Content>
         <ContentHeader title="Github Markdown Document">
           <SupportButton>View .md file on Github repository here</SupportButton>
         </ContentHeader>
-        <Grid container spacing={3} direction="column">
-          <Grid item>
-            <InfoCard
-              title="Repository information"
-              cardClassName={classes.infoCard}
-            >
-              <Typography variant="body1">
-                Owner:{' '}
-                <Link to={ownerLink}>
-                  {owner} <OpenInNew fontSize="inherit" />
-                </Link>
-                <br />
-                Repository:{' '}
-                <Link to={repoLink}>
-                  {repo} <OpenInNew fontSize="inherit" />
-                </Link>
-                <br />
-                Markdown file path: {mdFilePath}
-              </Typography>
 
-              <LinkButton
-                to={mdFileLink}
-                color="primary"
-                variant="contained"
-                endIcon={<GitHubIcon />}
-              >
-                View file on Github
+        {showEmptyState ? (
+          <EmptyState
+            missing="content"
+            title="Missing parameters"
+            description="Check out url parameters. It should be in the format of /owner/repo?path=mdFilePath"
+            action={
+              <LinkButton to="/" variant="contained">
+                Home
               </LinkButton>
-            </InfoCard>
-          </Grid>
-          <Grid item>
-            <div className={classes.markdownWrapper}>
-              <GithubMDDocFetchComponent
-                owner={owner}
-                repo={repo}
-                mdFilePath={mdFilePath}
-              />
-            </div>
-          </Grid>
-        </Grid>
+            }
+          />
+        ) : (
+          <GithubMDDocContent
+            owner={owner}
+            repo={repo}
+            mdFilePath={mdFilePath}
+          />
+        )}
       </Content>
     </Page>
   );
