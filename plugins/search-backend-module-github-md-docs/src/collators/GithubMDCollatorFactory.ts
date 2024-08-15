@@ -9,6 +9,7 @@ import { Repository } from '../types';
 import { getGithubRepositoryMDFiles } from '../utils/getGithubRepositoryMDFiles';
 
 const githubBaseURL = 'https://github.com';
+const githubMDDocsPluginPath = '/github-md-docs';
 
 export interface GithubMDDocument extends IndexableDocument {
   repositoryLink: string;
@@ -73,7 +74,9 @@ export class GithubMDCollatorFactory implements DocumentCollatorFactory {
         yield {
           title: file.split('/').pop() || '',
           text: file,
-          location: `${githubBaseURL}/${owner}/${repo}/blob/main/${file}`,
+          location: `${githubMDDocsPluginPath}/${owner}/${repo}?path=${encodeURIComponent(
+            file,
+          )}`,
           repositoryLink: `${githubBaseURL}/${owner}/${repo}`,
           repositoryOwner: owner,
           repositoryName: repo,

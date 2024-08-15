@@ -13,7 +13,6 @@ export const searchModuleGithubMdDocs = createBackendModule({
       deps: {
         logger: coreServices.logger,
         config: coreServices.rootConfig,
-        discovery: coreServices.discovery,
         scheduler: coreServices.scheduler,
         indexRegistry: searchIndexRegistryExtensionPoint,
       },
