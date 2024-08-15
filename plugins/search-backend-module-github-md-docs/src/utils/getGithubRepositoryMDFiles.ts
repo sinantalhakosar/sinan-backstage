@@ -1,4 +1,4 @@
-import { Repository } from '../types';
+import { GithubTreeItem, GithubTreeResponse, Repository } from '../types';
 
 const githubApiUrl = 'https://api.github.com';
 
@@ -19,12 +19,12 @@ export async function getGithubRepositoryMDFiles({
       );
     }
 
-    const data = await response.json();
+    const data: GithubTreeResponse = await response.json();
 
     // Filter for .md files
-    const mdFiles: Array<string> = data.tree
-      .filter((item: any) => item.path.endsWith('.md'))
-      .map((item: any) => item.path);
+    const mdFiles = data.tree
+      .filter((item: GithubTreeItem) => item.path.endsWith('.md'))
+      .map((item: GithubTreeItem) => item.path);
 
     return mdFiles;
   } catch (error) {

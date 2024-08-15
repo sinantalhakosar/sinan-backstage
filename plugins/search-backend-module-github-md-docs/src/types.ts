@@ -10,3 +10,19 @@ export type Repository = {
   owner: string;
   repo: string;
 };
+
+export interface GithubTreeItem {
+  path: string;
+  mode: string;
+  type: string;
+  sha: string;
+  size?: number;
+  url: string;
+}
+
+export interface GithubTreeResponse {
+  sha: string;
+  url: string;
+  tree: GithubTreeItem[];
+  truncated: boolean;
+}
