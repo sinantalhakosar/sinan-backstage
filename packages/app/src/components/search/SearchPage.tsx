@@ -27,7 +27,6 @@ import { useApi } from '@backstage/core-plugin-api';
 // eslint-disable-next-line @backstage/no-forbidden-package-imports
 import { GithubMDDocSearchResultListItem } from '@internal/backstage-plugin-github-md-docs/src';
 
-
 const useStyles = makeStyles((theme: Theme) => ({
   bar: {
     padding: theme.spacing(1, 0),
