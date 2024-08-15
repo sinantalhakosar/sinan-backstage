@@ -24,6 +24,8 @@ import {
   Page,
 } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
+import { GithubMDDocSearchResultListItem } from '@internal/backstage-plugin-github-md-docs';
+
 
 const useStyles = makeStyles((theme: Theme) => ({
   bar: {
@@ -118,6 +120,7 @@ const SearchPage = () => {
             <SearchResult>
               <CatalogSearchResultListItem icon={<CatalogIcon />} />
               <TechDocsSearchResultListItem icon={<DocsIcon />} />
+              <GithubMDDocSearchResultListItem icon={<DocsIcon />} />
             </SearchResult>
           </Grid>
         </Grid>

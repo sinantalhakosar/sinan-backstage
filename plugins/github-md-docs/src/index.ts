@@ -1,1 +1,6 @@
-export { githubMdDocsPlugin, GithubMdDocsPage } from './plugin';
+export {
+    githubMdDocsPlugin,
+    GithubMdDocsPage,
+    GithubMDDocSearchResultListItem,
+  } from './plugin';
+  
