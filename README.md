@@ -2,6 +2,10 @@
 
 This is newly scaffolded Backstage App.
 Backstage is now able to search the information in markdown files (all files with the extension .md) among the provided GitHub repositories in app-config.yaml.
+You can search files by;
+- File name
+- Repository name
+- Repository owner name
 
 ### Installation
 
@@ -12,7 +16,7 @@ If any command fails in 2nd step, please check your local yarn versions or reach
 
 ### Configuration
 
-You can allow to define the list of scanned repositories in app-config.yml file in format:
+Define the list of scanned repositories in app-config.yml file in format:
 ```yaml
 backend:
     search:
@@ -23,7 +27,7 @@ backend:
 ```
 
 > [!IMPORTANT]
-> If you want to add new repository, be aware that you need to rerun the application
+> If you want to add new repository to config, be aware that you need to rerun the application
 
 > [!IMPORTANT]
 > Inorder to run frontend side properly on locally, please make sure that you dont have any `/node_modules` folder under `plugins/github-md-docs`. If exists, you can remove it.
