@@ -1,0 +1,1 @@
+export { GithubMDDocFetchComponent } from './GithubMDDocFetchComponent';
