@@ -4,7 +4,10 @@ const githubApiUrl = 'https://api.github.com';
 
 interface Props extends Repository {}
 
-export async function getGithubRepositoryMDFiles({ owner, repo }: Props) {
+export async function getGithubRepositoryMDFiles({
+  owner,
+  repo,
+}: Props): Promise<Array<string> | Error> {
   try {
     const apiUrl = `${githubApiUrl}/repos/${owner}/${repo}/git/trees/main?recursive=1`;
 
@@ -19,7 +22,9 @@ export async function getGithubRepositoryMDFiles({ owner, repo }: Props) {
     const data = await response.json();
 
     // Filter for .md files
-    const mdFiles = data.tree.filter((item: any) => item.path.endsWith('.md'));
+    const mdFiles: Array<string> = data.tree
+      .filter((item: any) => item.path.endsWith('.md'))
+      .map((item: any) => item.path);
 
     return mdFiles;
   } catch (error) {

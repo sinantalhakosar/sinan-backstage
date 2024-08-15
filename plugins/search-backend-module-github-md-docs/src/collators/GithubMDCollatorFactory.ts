@@ -8,7 +8,13 @@ import {
 import { Repository } from '../types';
 import { getGithubRepositoryMDFiles } from '../utils/getGithubRepositoryMDFiles';
 
-export interface GithubMDDocument extends IndexableDocument {}
+const githubBaseURL = 'https://github.com';
+
+export interface GithubMDDocument extends IndexableDocument {
+  repositoryLink: string;
+  repositoryOwner: string;
+  repositoryName: string;
+}
 
 export type GithubMDCollatorFactoryOptions = {
   logger: LoggerService;
@@ -54,20 +60,24 @@ export class GithubMDCollatorFactory implements DocumentCollatorFactory {
 
     for (const repository of this.repositoryList) {
       const owner = repository.owner;
-      const name = repository.repo;
+      const repo = repository.repo;
 
-      try {
-        const mdFileList = await getGithubRepositoryMDFiles({
-          owner,
-          repo: name,
-        });
+      const mdFileList = await getGithubRepositoryMDFiles({ owner, repo });
 
-        this.logger.info(`1st MD File ${JSON.stringify(mdFileList[0])}`);
-      } catch (error) {
-        this.logger.error(
-          `Error fetching markdown files: ${(error as Error).message}`,
-        );
+      if (mdFileList instanceof Error) {
+        this.logger.error(mdFileList.message);
         continue;
+      }
+
+      for (const file of mdFileList) {
+        yield {
+          title: file.split('/').pop() || '',
+          text: file,
+          location: `${githubBaseURL}/${owner}/${repo}/blob/main/${file}`,
+          repositoryLink: `${githubBaseURL}/${owner}/${repo}`,
+          repositoryOwner: owner,
+          repositoryName: repo,
+        };
       }
     }
   }
