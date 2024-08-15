@@ -6,6 +6,14 @@ organization:
   name: My Company
 
 backend:
+  search:
+    github:
+      sources:
+        - owner: sinantalhakosar
+          repo: appointment-gpt
+        - owner: sinantalhakosar
+          repo: ember-tic-tac-toe
+
   # Used for enabling authentication, secret is shared by all backend plugins
   # See https://backstage.io/docs/auth/service-to-service-auth for
   # information on the format
