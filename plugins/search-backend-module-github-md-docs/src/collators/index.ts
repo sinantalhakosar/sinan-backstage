@@ -1,0 +1,1 @@
+export { GithubMDCollatorFactory } from './GithubMDCollatorFactory';

@@ -1,0 +1,1 @@
+export { GithubMDDocContent } from './GithubMDDocContent';

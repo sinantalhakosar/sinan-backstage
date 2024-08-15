@@ -24,6 +24,8 @@ import {
   Page,
 } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
+// eslint-disable-next-line @backstage/no-forbidden-package-imports
+import { GithubMDDocSearchResultListItem } from '@internal/backstage-plugin-github-md-docs/src';
 
 const useStyles = makeStyles((theme: Theme) => ({
   bar: {
@@ -70,6 +72,11 @@ const SearchPage = () => {
                   name: 'Documentation',
                   icon: <DocsIcon />,
                 },
+                {
+                  value: 'github-md-docs',
+                  name: 'Github Markdown files',
+                  icon: <DocsIcon />,
+                },
               ]}
             />
             <Paper className={classes.filters}>
@@ -113,6 +120,7 @@ const SearchPage = () => {
             <SearchResult>
               <CatalogSearchResultListItem icon={<CatalogIcon />} />
               <TechDocsSearchResultListItem icon={<DocsIcon />} />
+              <GithubMDDocSearchResultListItem icon={<DocsIcon />} />
             </SearchResult>
           </Grid>
         </Grid>
